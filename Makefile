@@ -63,7 +63,7 @@ upload: check-robot build  ## upload built targets to the Raspberry Pi
 	ssh $(REMOTE) sudo find $(PROJECT_NAME) -type d -name __pycache__ -user root -exec chmod go+wx {} "\;"
 	rsync -Lrtu --delete-after --delete-excluded --exclude bazel-out/ --exclude bazel-testlogs/ --exclude bazel-$(CURDIR_NAME) --exclude bazel-$(PROJECT_NAME)/ --progress $(CURDIR)/ $(REMOTE):$(PROJECT_NAME)/
 
-bullet:  ## start a Bullet simulation spine
+bullet_spine:  ## start a Bullet simulation spine
 	$(BAZEL) run //spines:bullet_spine -- --show
 
 # REMOTE TARGETS
