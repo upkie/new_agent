@@ -2,8 +2,6 @@
 #
 # Copyright 2022 Stéphane Caron
 
-load("//tools/lint:lint.bzl", "add_lint_tests")
-
 package(default_visibility = ["//visibility:public"])
 
 cc_binary(
@@ -70,5 +68,3 @@ cc_binary(
         "//conditions:default": ["@platforms//:incompatible"],
     }),
 )
-
-add_lint_tests()
