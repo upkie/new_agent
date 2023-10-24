@@ -1,5 +1,3 @@
-# RL tutorial
-
 This template repository is for developers creating new agents for [Upkie](https://github.com/tasts-robots/upkie) wheeled bipeds. All features from the main repository are available in Bazel via `@upkie` targets.
 
 ## Usage
