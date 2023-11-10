@@ -10,7 +10,7 @@
 REMOTE = ${ROBOT}
 
 # XXX: Project name, needs to match the one in WORKSPACE
-PROJECT_NAME = upkie_dev
+PROJECT_NAME = upkie_template
 
 BAZEL = $(CURDIR)/tools/bazelisk
 CURDATE = $(shell date --iso=seconds)

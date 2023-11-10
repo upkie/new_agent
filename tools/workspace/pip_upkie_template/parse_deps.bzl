@@ -12,6 +12,6 @@ def parse_deps():
     This function intended to be loaded and called from your WORKSPACE.
     """
     pip_parse(
-        name = "pip_upkie_dev",
-        requirements_lock = Label("//tools/workspace/pip_upkie_dev:requirements_lock.txt"),
+        name = "pip_upkie_template",
+        requirements_lock = Label("//tools/workspace/pip_upkie_template:requirements_lock.txt"),
     )
