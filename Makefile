@@ -70,10 +70,10 @@ bullet_spine:  ## start a Bullet simulation spine
 # ==============
 
 run_mock_spine:  ### run the mock spine on the Raspberry Pi
-	$(RASPUNZEL) run -s @upkie//spines:mock_spine
+	$(RASPUNZEL) run -s //spines:mock_spine
 
 run_pi3hat_spine:  ### run the pi3hat spine on the Raspberry Pi
-	$(RASPUNZEL) run -s @upkie//spines:pi3hat_spine
+	$(RASPUNZEL) run -s //spines:pi3hat_spine
 
 run_agent:  ### sandbox agent
-	$(RASPUNZEL) run -v -s //agent -- --config pi3hat --configure-cpu
+	$(RASPUNZEL) run -v -s //agent

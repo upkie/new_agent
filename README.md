@@ -4,8 +4,8 @@ This is a template repository to create new agents for [Upkie](https://github.co
 
 - Create a new repository from this template.
 - Search for the string "XXX": it indicates template values to configure, such as the project name.
-- Adapt the spines to taste, for instance with custom observers.
-- Implement your agent in the agent directory.
+- Implement your agent in the ``agent`` directory.
+- Optional: adapt the spines in the ``spines`` directory, for instance with custom observers.
 
 ## Usage
 
