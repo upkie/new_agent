@@ -3,7 +3,7 @@
 # Copyright 2022 Stéphane Caron
 # Copyright 2023 Inria
 
-workspace(name = "upkie_template")  # XXX: rename
+workspace(name = "agent_template")  # XXX: rename
 
 # Repositories
 # ============
@@ -37,9 +37,9 @@ add_rpi_bazel_repositories()
 # ===================
 
 # Depends on @rules_python which is a @palimpsest repository
-load("//tools/workspace/pip_upkie_template:parse_deps.bzl", "parse_deps")
+load("//tools/workspace/pip_agent_template:parse_deps.bzl", "parse_deps")
 parse_deps()
-load("@pip_upkie_template//:requirements.bzl", "install_deps")
+load("@pip_agent_template//:requirements.bzl", "install_deps")
 install_deps()
 
 # Vulp also has Python dependencies
