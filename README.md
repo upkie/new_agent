@@ -1,4 +1,4 @@
-This is a template repository to create new agents for [Upkie](https://github.com/tasts-robots/upkie) wheeled bipeds. All features from the main repository are available in Bazel via `@upkie` targets.
+This is a template repository to create new agents for [Upkie](https://github.com/upkie/upkie) wheeled bipeds. All features from the main repository are available in Bazel via `@upkie` targets.
 
 ## Setup
 
