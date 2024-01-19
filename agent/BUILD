@@ -2,8 +2,6 @@
 #
 # Copyright 2022 Stéphane Caron
 
-load("@pip_upkie//:requirements.bzl", "requirement")
-
 package(default_visibility = ["//visibility:public"])
 
 py_binary(
@@ -17,6 +15,5 @@ py_binary(
     deps = [
         "@upkie//upkie/envs",
         "@upkie//upkie/utils:raspi",
-        requirement("loop_rate_limiters"),
     ],
 )
