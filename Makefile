@@ -10,7 +10,7 @@
 REMOTE = ${UPKIE_NAME}
 
 # Project name, needs to match the one in WORKSPACE
-PROJECT_NAME = agent_template  # XXX: rename
+PROJECT_NAME = new_agent  # XXX: rename
 
 BAZEL = $(CURDIR)/tools/bazelisk
 CURDATE = $(shell date --iso=seconds)

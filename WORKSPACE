@@ -3,7 +3,7 @@
 # Copyright 2022 Stéphane Caron
 # Copyright 2023 Inria
 
-workspace(name = "agent_template")  # XXX: rename
+workspace(name = "new_agent")  # XXX: rename
 
 # Repositories
 # ============
