@@ -62,3 +62,10 @@ upload: check-robot build  ## upload built targets to the Raspberry Pi
 
 run_agent:  ### run agent
 	$(RASPUNZEL) run -v -s //agent
+
+run_mock_spine:  ### run the mock spine on the Raspberry Pi
+	$(RASPUNZEL) run -s //spines:mock_spine
+
+# NB: run_pi3hat_spine is used in build instructions
+run_pi3hat_spine:  ### run the pi3hat spine on the Raspberry Pi
+	$(RASPUNZEL) run -s //spines:pi3hat_spine
