@@ -6,7 +6,7 @@ package(default_visibility = ["//visibility:public"])
 
 py_binary(
     name = "agent",
-    main = "agent.py",
+    main = "main.py",
     srcs = glob(["*.py"]),
 
     # Enable `from X import y` rather than `from agents.agent_name.X import y`
