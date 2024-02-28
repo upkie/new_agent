@@ -61,7 +61,7 @@ upload: check_upkie_name build  ## upload built targets to the Raspberry Pi
 	rsync -Lrtu --delete-after --delete-excluded --exclude bazel-out/ --exclude bazel-testlogs/ --exclude bazel-$(CURDIR_NAME) --exclude bazel-$(PROJECT_NAME)/ --progress $(CURDIR)/ $(REMOTE):$(PROJECT_NAME)/
 
 run_agent:  ### run agent
-	$(RASPUNZEL) run -v -s //agent
+	python agent/main.py
 
 run_mock_spine:  ### run the mock spine on the Raspberry Pi
 	$(RASPUNZEL) run -s //spines:mock_spine
