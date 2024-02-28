@@ -10,10 +10,10 @@ This template repository makes it easier to create new agents for [Upkie](https:
 
 ## Usage
 
-The `Makefile` can be to build and upload your agent to the real robot. Run ``make help`` for a list of available rules.
-
-You can also run your agent locally with Bazelisk:
+Run your agent directly as a Python script:
 
 ```bash
-$ ./tools/bazelisk run //agent
+$ python ./run_agent.py
 ```
+
+If you are implementing custom C++ spines, use the `spines/Makefile` to build and upload your spines to the real robot. Run ``make help`` for a list of available rules.
