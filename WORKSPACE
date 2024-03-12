@@ -1,8 +1,6 @@
 # -*- python -*-
-#
-# SPDX-License-Identifier: Apache-2.0
 
-workspace(name = "new_agent")  # TODO: rename
+workspace(name = "new_agent")  # TODO: set project name here
 
 # Add default repositories listed in tools/workspace/
 load("//tools/workspace:default.bzl", "add_default_repositories")
