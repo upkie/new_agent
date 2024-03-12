@@ -8,12 +8,7 @@
 # environment variable. Valid usage: ``make upload UPKIE_NAME=foo``
 REMOTE = ${UPKIE_NAME}
 
-# Project name (TODO: rename) needs to match the one in WORKSPACE
-PROJECT_NAME = new_agent
-
-BASEDIR = $(shell dirname $(CURDIR))
-
-BAZEL = $(BASEDIR)/tools/bazelisk
+BAZEL = $(CURDIR)/tools/bazelisk
 CURDATE = $(shell date --iso=seconds)
 BASEDIR_NAME = $(shell basename $(BASEDIR))
 RASPUNZEL = $(BASEDIR)/tools/raspunzel
@@ -56,9 +51,12 @@ clean:  ## clean all local build and intermediate files
 .PHONY: upload
 upload: check_upkie_name build  ## upload built targets to the Raspberry Pi
 	ssh $(REMOTE) sudo date -s "$(CURDATE)"
-	ssh $(REMOTE) mkdir -p $(PROJECT_NAME)
-	ssh $(REMOTE) sudo find $(PROJECT_NAME) -type d -name __pycache__ -user root -exec chmod go+wx {} "\;"
-	rsync -Lrtu --delete-after --delete-excluded --exclude bazel-out/ --exclude bazel-testlogs/ --exclude bazel-$(BASEDIR_NAME) --exclude bazel-$(PROJECT_NAME)/ --progress $(BASEDIR)/ $(REMOTE):$(PROJECT_NAME)/
+	ssh $(REMOTE) mkdir -p $(CURDIR_NAME)
+	ssh $(REMOTE) sudo find $(CURDIR_NAME) -type d -name __pycache__ -user root -exec chmod go+wx {} "\;"
+	rsync -Lrtu --delete-after --delete-excluded --exclude bazel-out/ --exclude bazel-testlogs/ --exclude bazel-$(CURDIR_NAME) --progress $(CURDIR)/ $(REMOTE):$(CURDIR_NAME)/
+
+run_agent:  ### run agent with Bazel on the Raspberry Pi
+	$(RASPUNZEL) run -v -s //agent
 
 run_mock_spine:  ### run the mock spine on the Raspberry Pi
 	$(RASPUNZEL) run -s //spines:mock_spine
