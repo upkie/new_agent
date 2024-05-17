@@ -13,7 +13,13 @@ This template repository makes it easier to create new agents for [Upkie](https:
 Run your agent directly as a Python script:
 
 ```bash
-$ python ./run_agent.py
+$ python ./agent/agent.py
 ```
 
-If you are implementing custom C++ spines, use the `spines/Makefile` to build and upload your spines to the real robot. Run ``make help`` for a list of available rules.
+Use the Makefile to start a simulation using your custom Bullet spine:
+
+```bash
+$ make simulate
+```
+
+The Makefile includes other rules to cross-compile and upload your spine and agent to the robot. Run ``make help`` for a list of available rules.
