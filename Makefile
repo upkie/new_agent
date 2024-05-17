@@ -7,7 +7,7 @@
 REMOTE = ${UPKIE_NAME}
 
 # Project name needs to match the one in WORKSPACE
-# TODO: set project name here
+# TODO: set project name
 PROJECT_NAME = new_agent
 
 BAZEL = $(CURDIR)/tools/bazelisk

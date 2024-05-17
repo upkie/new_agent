@@ -1,6 +1,6 @@
 # -*- python -*-
 
-workspace(name = "new_agent")  # TODO: set project name here
+workspace(name = "new_agent")  # TODO: set project name
 
 # Add default repositories listed in tools/workspace/
 load("//tools/workspace:default.bzl", "add_default_repositories")
