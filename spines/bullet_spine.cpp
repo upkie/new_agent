@@ -1,6 +1,4 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 Stéphane Caron
-// Copyright 2023 Inria
 
 #include <vulp/actuation/BulletInterface.h>
 #include <vulp/observation/ObserverPipeline.h>

@@ -1,8 +1,6 @@
-# Makefile for upkie targets
+# Makefile for Upkie spine and agent targets
 #
 # SPDX-License-Identifier: Apache-2.0
-# Copyright 2022 Stéphane Caron
-# Copyright 2024 Inria
 
 # Hostname or IP address of the Raspberry Pi Uses the value from the UPKIE_NAME
 # environment variable, if defined. Valid usage: ``make upload UPKIE_NAME=foo``
