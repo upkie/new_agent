@@ -23,7 +23,7 @@ Alternatively, you can install the interface for Upkie from PyPI by ``pip instal
 Run your agent directly as a Python script:
 
 ```bash
-$ python ./agent/agent.py
+$ python ./agent/run.py
 ```
 
 Use the Makefile to start a simulation using your custom Bullet spine:
