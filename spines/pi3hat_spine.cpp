@@ -170,7 +170,7 @@ int main(const CommandLineArguments& args) {
 
   // Observation: CPU temperature
   auto cpu_temperature = std::make_shared<CpuTemperature>();
-  observation.connect_source(cpu_temperature);
+  observation.connect_sensor(cpu_temperature);
 
   // Observation: Joystick
   auto joystick = std::make_shared<Joystick>();
@@ -185,7 +185,7 @@ int main(const CommandLineArguments& args) {
       return -6;
     }
   }
-  observation.connect_source(joystick);
+  observation.connect_sensor(joystick);
 
   // Observation: Floor contact
   FloorContact::Parameters floor_contact_params;
