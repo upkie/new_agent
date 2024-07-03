@@ -1,16 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
 
-#include <upkie/cpp/actuation/MockInterface.h>
-#include <upkie/cpp/config/layout.h>
-#include <upkie/cpp/observers/FloorContact.h>
-#include <upkie/cpp/observers/ObserverPipeline.h>
-#include <upkie/cpp/observers/WheelOdometry.h>
-#include <upkie/cpp/sensors/CpuTemperature.h>
-#include <upkie/cpp/sensors/Joystick.h>
-#include <upkie/cpp/spine/Spine.h>
-#include <upkie/cpp/utils/realtime.h>
-#include <upkie/cpp/version.h>
-
 #include <algorithm>
 #include <future>
 #include <iostream>
@@ -19,6 +8,17 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+
+#include "upkie/cpp/actuation/MockInterface.h"
+#include "upkie/cpp/config/layout.h"
+#include "upkie/cpp/observers/FloorContact.h"
+#include "upkie/cpp/observers/ObserverPipeline.h"
+#include "upkie/cpp/observers/WheelOdometry.h"
+#include "upkie/cpp/sensors/CpuTemperature.h"
+#include "upkie/cpp/sensors/Joystick.h"
+#include "upkie/cpp/spine/Spine.h"
+#include "upkie/cpp/utils/realtime.h"
+#include "upkie/cpp/version.h"
 
 namespace spines::mock {
 

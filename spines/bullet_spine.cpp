@@ -1,15 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
 
-#include <upkie/actuation/BulletInterface.h>
-#include <upkie/cpp/config/layout.h>
-#include <upkie/cpp/observers/FloorContact.h>
-#include <upkie/cpp/observers/WheelOdometry.h>
-#include <upkie/cpp/utils/datetime_now_string.h>
-#include <upkie/cpp/version.h>
-#include <upkie/observers/ObserverPipeline.h>
-#include <upkie/sensors/CpuTemperature.h>
-#include <upkie/spine/Spine.h>
-
 #include <algorithm>
 #include <cstdlib>
 #include <future>
@@ -20,8 +10,18 @@
 #include <string>
 #include <vector>
 
+#include "upkie/actuation/BulletInterface.h"
+#include "upkie/cpp/config/layout.h"
+#include "upkie/cpp/observers/FloorContact.h"
+#include "upkie/cpp/observers/WheelOdometry.h"
+#include "upkie/cpp/utils/datetime_now_string.h"
+#include "upkie/cpp/version.h"
+#include "upkie/observers/ObserverPipeline.h"
+#include "upkie/sensors/CpuTemperature.h"
+#include "upkie/spine/Spine.h"
+
 #ifndef __APPLE__
-#include <upkie/cpp/sensors/Joystick.h>
+#include "upkie/cpp/sensors/Joystick.h"
 #endif
 
 namespace spines::bullet {
