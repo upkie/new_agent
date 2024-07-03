@@ -22,6 +22,7 @@
 #include "upkie/cpp/sensors/Joystick.h"
 #include "upkie/cpp/spine/Spine.h"
 #include "upkie/cpp/utils/datetime_now_string.h"
+#include "upkie/cpp/utils/get_log_path.h"
 #include "upkie/cpp/utils/realtime.h"
 #include "upkie/cpp/version.h"
 
@@ -144,7 +145,7 @@ inline bool calibration_needed() {
 }
 
 inline const std::string get_log_path(const std::string& log_dir) {
-  const auto now = upkie::utils::datetime_now_string();
+  const auto now = upkie::datetime_now_string();
   const std::string prefix = log_dir + "/" + now + "_pi3hat_spine";
 
   char hostname[512];

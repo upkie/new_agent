@@ -53,6 +53,7 @@ cc_binary(
         "@upkie//upkie/cpp/sensors",
         "@upkie//upkie/cpp/spine",
         "@upkie//upkie/cpp/utils:datetime_now_string",
+        "@upkie//upkie/cpp/utils:get_log_path",
         "@upkie//upkie/cpp:version",
     ] + select({
         "//:pi64_config": ["@upkie//upkie/cpp/actuation:pi3hat_interface"],
