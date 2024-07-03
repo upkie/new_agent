@@ -1,11 +1,15 @@
 // SPDX-License-Identifier: Apache-2.0
 
-#include <vulp/actuation/MockInterface.h>
-#include <vulp/observation/ObserverPipeline.h>
-#include <vulp/observation/sources/CpuTemperature.h>
-#include <vulp/observation/sources/Joystick.h>
-#include <vulp/spine/Spine.h>
-#include <vulp/utils/realtime.h>
+#include <upkie/cpp/actuation/MockInterface.h>
+#include <upkie/cpp/config/layout.h>
+#include <upkie/cpp/observers/FloorContact.h>
+#include <upkie/cpp/observers/ObserverPipeline.h>
+#include <upkie/cpp/observers/WheelOdometry.h>
+#include <upkie/cpp/sensors/CpuTemperature.h>
+#include <upkie/cpp/sensors/Joystick.h>
+#include <upkie/cpp/spine/Spine.h>
+#include <upkie/cpp/utils/realtime.h>
+#include <upkie/cpp/version.h>
 
 #include <algorithm>
 #include <future>
@@ -16,21 +20,16 @@
 #include <string>
 #include <vector>
 
-#include "upkie/config/layout.h"
-#include "upkie/observers/FloorContact.h"
-#include "upkie/observers/WheelOdometry.h"
-#include "upkie/version.h"
-
 namespace spines::mock {
 
 using palimpsest::Dictionary;
-using upkie::observers::FloorContact;
-using upkie::observers::WheelOdometry;
-using vulp::actuation::MockInterface;
-using vulp::observation::ObserverPipeline;
-using vulp::observation::sources::CpuTemperature;
-using vulp::observation::sources::Joystick;
-using vulp::spine::Spine;
+using upkie::CpuTemperature;
+using upkie::FloorContact;
+using upkie::Joystick;
+using upkie::MockInterface;
+using upkie::ObserverPipeline;
+using upkie::Spine;
+using upkie::WheelOdometry;
 
 //! Command-line arguments for the mock spine.
 class CommandLineArguments {
@@ -96,7 +95,7 @@ class CommandLineArguments {
 };
 
 int main(const CommandLineArguments& args) {
-  if (!vulp::utils::lock_memory()) {
+  if (!upkie::lock_memory()) {
     spdlog::error("could not lock process memory to RAM");
     return -4;
   }
@@ -117,8 +116,8 @@ int main(const CommandLineArguments& args) {
   // Observation: Floor contact
   FloorContact::Parameters floor_contact_params;
   floor_contact_params.dt = 1.0 / args.spine_frequency;
-  floor_contact_params.upper_leg_joints = upkie::config::upper_leg_joints();
-  floor_contact_params.wheels = upkie::config::wheel_joints();
+  floor_contact_params.upper_leg_joints = upkie::upper_leg_joints();
+  floor_contact_params.wheels = upkie::wheel_joints();
   auto floor_contact = std::make_shared<FloorContact>(floor_contact_params);
   observation.append_observer(floor_contact);
 
@@ -129,7 +128,7 @@ int main(const CommandLineArguments& args) {
   observation.append_observer(odometry);
 
   // Mock actuators
-  const auto servo_layout = upkie::config::servo_layout();
+  const auto servo_layout = upkie::servo_layout();
   const double dt = 1.0 / args.spine_frequency;
   MockInterface actuation(servo_layout, dt);
 
