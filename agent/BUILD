@@ -22,6 +22,6 @@ py_binary(
         "@upkie//upkie/utils:exceptions",
         "@upkie//upkie/utils:raspi",
         "@upkie//upkie/utils:spdlog",
-        "@vulp//:python",
+        "@upkie//upkie:python",
     ],
 )

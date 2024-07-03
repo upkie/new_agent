@@ -49,9 +49,8 @@ cc_binary(
     ],
     deps = [
         "@upkie//upkie/cpp/config:layout",
-        "@upkie//upkie/cpp/observation",
-        "@upkie//upkie/cpp/observation/sources",
         "@upkie//upkie/cpp/observers",
+        "@upkie//upkie/cpp/sensors",
         "@upkie//upkie/cpp/spine",
         "@upkie//upkie/cpp/utils:datetime_now_string",
         "@upkie//upkie/cpp:version",

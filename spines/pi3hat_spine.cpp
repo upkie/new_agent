@@ -217,12 +217,7 @@ int main(const CommandLineArguments& args) {
     Spine::Parameters spine_params;
     spine_params.cpu = args.spine_cpu;
     spine_params.frequency = args.spine_frequency;
-<<<<<<< HEAD
-    spine_params.log_path = get_log_path(args.log_dir);
-=======
-    const auto now = upkie::datetime_now_string();
-    spine_params.log_path = args.log_dir + "/" + now + "_pi3hat_spine.mpack";
->>>>>>> 10824f1 (WIP: Update to the merge of vulp into upkie)
+    spine_params.log_path = upkie::get_log_path(args.log_dir, "pi3hat_spine");
     spdlog::info("Spine data logged to {}", spine_params.log_path);
     Spine spine(spine_params, interface, observation);
     spine.run();
