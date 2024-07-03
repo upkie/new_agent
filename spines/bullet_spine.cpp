@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
-#include <vulp/actuation/BulletInterface.h>
-#include <vulp/observation/ObserverPipeline.h>
-#include <vulp/observation/sources/CpuTemperature.h>
-
-#ifndef __APPLE__
-#include <vulp/observation/sources/Joystick.h>
-#endif
-
-#include <vulp/spine/Spine.h>
+#include <upkie/actuation/BulletInterface.h>
+#include <upkie/cpp/config/layout.h>
+#include <upkie/cpp/observers/FloorContact.h>
+#include <upkie/cpp/observers/WheelOdometry.h>
+#include <upkie/cpp/utils/datetime_now_string.h>
+#include <upkie/cpp/version.h>
+#include <upkie/observers/ObserverPipeline.h>
+#include <upkie/sensors/CpuTemperature.h>
+#include <upkie/spine/Spine.h>
 
 #include <algorithm>
 #include <cstdlib>
@@ -20,26 +20,23 @@
 #include <string>
 #include <vector>
 
-#include "upkie/config/layout.h"
-#include "upkie/observers/FloorContact.h"
-#include "upkie/observers/WheelOdometry.h"
-#include "upkie/utils/datetime_now_string.h"
-#include "upkie/version.h"
+#ifndef __APPLE__
+#include <upkie/cpp/sensors/Joystick.h>
+#endif
 
 namespace spines::bullet {
 
 using palimpsest::Dictionary;
-using upkie::observers::FloorContact;
-using upkie::observers::WheelOdometry;
-using vulp::actuation::BulletInterface;
-using vulp::observation::ObserverPipeline;
-using vulp::observation::sources::CpuTemperature;
+using upkie::BulletInterface;
+using upkie::FloorContact;
+using upkie::WheelOdometry;
+using upkie::observers::ObserverPipeline;
+using upkie::sensors::CpuTemperature;
+using upkie::spine::Spine;
 
 #ifndef __APPLE__
-using vulp::observation::sources::Joystick;
+using upkie::sensors::Joystick;
 #endif
-
-using vulp::spine::Spine;
 
 //! Command-line arguments for the Bullet spine.
 class CommandLineArguments {
@@ -130,7 +127,7 @@ class CommandLineArguments {
   unsigned nb_substeps = 0u;
 
   //! Name for the shared memory file
-  std::string shm_name = "/vulp";
+  std::string shm_name = "/upkie";
 
   //! Show Bullet GUI
   bool show = false;
@@ -198,8 +195,8 @@ int main(const char* argv0, const CommandLineArguments& args) {
   // Observation: Floor contact
   FloorContact::Parameters floor_contact_params;
   floor_contact_params.dt = 1.0 / args.spine_frequency;
-  floor_contact_params.upper_leg_joints = upkie::config::upper_leg_joints();
-  floor_contact_params.wheels = upkie::config::wheel_joints();
+  floor_contact_params.upper_leg_joints = upkie::upper_leg_joints();
+  floor_contact_params.wheels = upkie::wheel_joints();
   auto floor_contact = std::make_shared<FloorContact>(floor_contact_params);
   observation.append_observer(floor_contact);
 
@@ -213,7 +210,7 @@ int main(const char* argv0, const CommandLineArguments& args) {
   // a "b3AlignedObjectArray reserve out-of-memory" error below.
 
   // Simulator
-  const auto servo_layout = upkie::config::servo_layout();
+  const auto servo_layout = upkie::servo_layout();
   const double base_altitude = args.space ? 0.0 : 0.6;  // [m]
   BulletInterface::Parameters bullet_params(Dictionary{});
   bullet_params.argv0 = argv0;
@@ -229,7 +226,7 @@ int main(const char* argv0, const CommandLineArguments& args) {
   // Spine
   Spine::Parameters spine_params;
   spine_params.frequency = args.spine_frequency;
-  const auto now = upkie::utils::datetime_now_string();
+  const auto now = upkie::datetime_now_string();
   spine_params.log_path = args.log_dir + "/" + now + "_bullet_spine.mpack";
   spine_params.shm_name = args.shm_name;
   spdlog::info("Spine data logged to {}", spine_params.log_path);
