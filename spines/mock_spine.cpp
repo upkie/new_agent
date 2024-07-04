@@ -96,7 +96,7 @@ class CommandLineArguments {
 };
 
 int main(const CommandLineArguments& args) {
-  if (!upkie::lock_memory()) {
+  if (!upkie::utils::lock_memory()) {
     spdlog::error("could not lock process memory to RAM");
     return -4;
   }

@@ -146,7 +146,7 @@ inline bool calibration_needed() {
 }
 
 inline const std::string get_log_path(const std::string& log_dir) {
-  const auto now = upkie::datetime_now_string();
+  const auto now = upkie::utils::datetime_now_string();
   const std::string prefix = log_dir + "/" + now + "_pi3hat_spine";
 
   char hostname[512];
@@ -163,7 +163,7 @@ int main(const CommandLineArguments& args) {
     spdlog::error("Calibration needed: did you run `upkie_tool rezero`?");
     return -3;
   }
-  if (!upkie::lock_memory()) {
+  if (!upkie::utils::lock_memory()) {
     spdlog::error("Could not lock process memory to RAM");
     return -4;
   }
