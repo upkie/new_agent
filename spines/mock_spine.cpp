@@ -10,7 +10,8 @@
 #include <vector>
 
 #include "upkie/cpp/actuation/MockInterface.h"
-#include "upkie/cpp/config/layout.h"
+#include "upkie/cpp/model/joints.h"
+#include "upkie/cpp/model/servo_layout.h"
 #include "upkie/cpp/observers/FloorContact.h"
 #include "upkie/cpp/observers/ObserverPipeline.h"
 #include "upkie/cpp/observers/WheelOdometry.h"
@@ -23,13 +24,13 @@
 namespace spines::mock {
 
 using palimpsest::Dictionary;
-using upkie::CpuTemperature;
-using upkie::FloorContact;
-using upkie::Joystick;
-using upkie::MockInterface;
-using upkie::ObserverPipeline;
-using upkie::Spine;
-using upkie::WheelOdometry;
+using upkie::actuation::MockInterface;
+using upkie::observers::FloorContact;
+using upkie::observers::ObserverPipeline;
+using upkie::observers::WheelOdometry;
+using upkie::sensors::CpuTemperature;
+using upkie::sensors::Joystick;
+using upkie::spine::Spine;
 
 //! Command-line arguments for the mock spine.
 class CommandLineArguments {
@@ -116,8 +117,8 @@ int main(const CommandLineArguments& args) {
   // Observation: Floor contact
   FloorContact::Parameters floor_contact_params;
   floor_contact_params.dt = 1.0 / args.spine_frequency;
-  floor_contact_params.upper_leg_joints = upkie::upper_leg_joints();
-  floor_contact_params.wheels = upkie::wheel_joints();
+  floor_contact_params.upper_leg_joints = upkie::model::upper_leg_joints();
+  floor_contact_params.wheels = upkie::model::wheel_joints();
   auto floor_contact = std::make_shared<FloorContact>(floor_contact_params);
   observation.append_observer(floor_contact);
 
@@ -128,7 +129,7 @@ int main(const CommandLineArguments& args) {
   observation.append_observer(odometry);
 
   // Mock actuators
-  const auto servo_layout = upkie::servo_layout();
+  const auto servo_layout = upkie::model::servo_layout();
   const double dt = 1.0 / args.spine_frequency;
   MockInterface actuation(servo_layout, dt);
 
