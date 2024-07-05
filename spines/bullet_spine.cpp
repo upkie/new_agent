@@ -10,16 +10,16 @@
 #include <string>
 #include <vector>
 
-#include "upkie/actuation/BulletInterface.h"
+#include "upkie/cpp/actuation/BulletInterface.h"
 #include "upkie/cpp/model/joints.h"
 #include "upkie/cpp/model/servo_layout.h"
 #include "upkie/cpp/observers/FloorContact.h"
+#include "upkie/cpp/observers/ObserverPipeline.h"
 #include "upkie/cpp/observers/WheelOdometry.h"
+#include "upkie/cpp/sensors/CpuTemperature.h"
+#include "upkie/cpp/spine/Spine.h"
 #include "upkie/cpp/utils/datetime_now_string.h"
 #include "upkie/cpp/version.h"
-#include "upkie/observers/ObserverPipeline.h"
-#include "upkie/sensors/CpuTemperature.h"
-#include "upkie/spine/Spine.h"
 
 #ifndef __APPLE__
 #include "upkie/cpp/sensors/Joystick.h"
@@ -30,8 +30,8 @@ namespace spines::bullet {
 using palimpsest::Dictionary;
 using upkie::actuation::BulletInterface;
 using upkie::observers::FloorContact;
-using upkie::observers::WheelOdometry;
 using upkie::observers::ObserverPipeline;
+using upkie::observers::WheelOdometry;
 using upkie::sensors::CpuTemperature;
 using upkie::spine::Spine;
 
