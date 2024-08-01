@@ -1,4 +1,6 @@
-This template repository makes it easier to create new agents for [Upkie](https://github.com/upkie/upkie) wheeled bipeds.
+Template repository to create new agents with custom spines for [Upkie](https://github.com/upkie/upkie) wheeled bipeds.
+
+If you don't need a custom spine, you can implement your agent in Python directly. Check out the [MPC](https://github.com/upkie/mpc_balancer) or [Pink](https://github.com/upkie/pink_balancer) balancers for instance.
 
 ## Getting started
 
@@ -10,7 +12,8 @@ This template repository makes it easier to create new agents for [Upkie](https:
 
 ## Usage
 
-- Python packages: ``conda create -f environment.yaml``
+- Install Python packages to a conda environment: ``conda create -f environment.yaml``
+- Activate conda environment: ``conda activate <env_name>``
 - Run the simulation spine: ``make simulate``
 - Build the pi3hat spine locally: ``make build``
 - Upload the full repository (with built spines) to the robot: ``make upload``
