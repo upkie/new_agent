@@ -2,4 +2,4 @@ name: new_agent  # TODO: set project name
 channels:
     - https://conda.anaconda.org/conda-forge
 dependencies:
-    - upkie >= 3.4.0
+    - upkie >=5.0.1

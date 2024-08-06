@@ -7,8 +7,9 @@ If you don't need a custom spine, you can implement your agent in Python directl
 1. Create a new repository from this template.
 2. Search for the string "TODO" and update files accordingly
 3. Replace ``LICENSE`` with the license of your choice (the default one is Apache-2.0)
-4. Implement your agent in the ``agent`` directory.
-5. Implement your C++ spines in the ``spines`` directory.
+4. Start listing your dependencies in ``environment.yaml``
+5. Implement your agent in the ``agent`` directory.
+6. Implement your C++ spines in the ``spines`` directory.
 
 ## Usage
 
