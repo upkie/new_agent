@@ -23,6 +23,7 @@
 #ifndef __APPLE__
 #include "upkie/cpp/sensors/Joystick.h"
 #endif
+
 namespace spines::mock {
 
 using palimpsest::Dictionary;
