@@ -16,11 +16,13 @@
 #include "upkie/cpp/observers/ObserverPipeline.h"
 #include "upkie/cpp/observers/WheelOdometry.h"
 #include "upkie/cpp/sensors/CpuTemperature.h"
-#include "upkie/cpp/sensors/Joystick.h"
 #include "upkie/cpp/spine/Spine.h"
 #include "upkie/cpp/utils/realtime.h"
 #include "upkie/cpp/version.h"
 
+#ifndef __APPLE__
+#include "upkie/cpp/sensors/Joystick.h"
+#endif
 namespace spines::mock {
 
 using palimpsest::Dictionary;
@@ -29,8 +31,11 @@ using upkie::cpp::observers::FloorContact;
 using upkie::cpp::observers::ObserverPipeline;
 using upkie::cpp::observers::WheelOdometry;
 using upkie::cpp::sensors::CpuTemperature;
-using upkie::cpp::sensors::Joystick;
 using upkie::cpp::spine::Spine;
+
+#ifndef __APPLE__
+using upkie::cpp::sensors::Joystick;
+#endif
 
 //! Command-line arguments for the mock spine.
 class CommandLineArguments {
