@@ -16,7 +16,7 @@ cc_binary(
         "@upkie//upkie/cpp/observers",
         "@upkie//upkie/cpp/sensors",
         "@upkie//upkie/cpp/spine",
-        "@upkie//upkie/cpp/utils:datetime_now_string",
+        "@upkie//upkie/cpp/utils:get_log_path",
         "@upkie//upkie/cpp:version",
     ],
 )
@@ -32,6 +32,7 @@ cc_binary(
         "@upkie//upkie/cpp/observers",
         "@upkie//upkie/cpp/sensors",
         "@upkie//upkie/cpp/spine",
+        "@upkie//upkie/cpp/utils:get_log_path",
         "@upkie//upkie/cpp:version",
     ] + select({
         "//:pi64_config": [
@@ -52,7 +53,6 @@ cc_binary(
         "@upkie//upkie/cpp/observers",
         "@upkie//upkie/cpp/sensors",
         "@upkie//upkie/cpp/spine",
-        "@upkie//upkie/cpp/utils:datetime_now_string",
         "@upkie//upkie/cpp/utils:get_log_path",
         "@upkie//upkie/cpp:version",
     ] + select({
