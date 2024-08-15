@@ -113,12 +113,14 @@ int main(const CommandLineArguments& args) {
   auto cpu_temperature = std::make_shared<CpuTemperature>();
   observation.connect_sensor(cpu_temperature);
 
+#ifndef __APPLE__
   // Observation: Joystick
   auto joystick = std::make_shared<Joystick>();
   if (joystick->present()) {
     spdlog::info("Joystick found");
     observation.connect_sensor(joystick);
   }
+#endif
 
   // Observation: Floor contact
   FloorContact::Parameters floor_contact_params;
