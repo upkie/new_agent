@@ -13,12 +13,13 @@
 #include "upkie/cpp/actuation/BulletInterface.h"
 #include "upkie/cpp/model/joints.h"
 #include "upkie/cpp/model/servo_layout.h"
+#include "upkie/cpp/observers/BaseOrientation.h"
 #include "upkie/cpp/observers/FloorContact.h"
 #include "upkie/cpp/observers/ObserverPipeline.h"
 #include "upkie/cpp/observers/WheelOdometry.h"
 #include "upkie/cpp/sensors/CpuTemperature.h"
 #include "upkie/cpp/spine/Spine.h"
-#include "upkie/cpp/utils/datetime_now_string.h"
+#include "upkie/cpp/utils/get_log_path.h"
 #include "upkie/cpp/version.h"
 
 #ifndef __APPLE__
@@ -29,6 +30,7 @@ namespace spines::bullet {
 
 using palimpsest::Dictionary;
 using upkie::cpp::actuation::BulletInterface;
+using upkie::cpp::observers::BaseOrientation;
 using upkie::cpp::observers::FloorContact;
 using upkie::cpp::observers::ObserverPipeline;
 using upkie::cpp::observers::WheelOdometry;
@@ -180,6 +182,12 @@ int main(const char* argv0, const CommandLineArguments& args) {
     return EXIT_FAILURE;
   }
 
+  // Observation: Base orientation
+  BaseOrientation::Parameters base_orientation_params;
+  auto base_orientation =
+      std::make_shared<BaseOrientation>(base_orientation_params);
+  observation.append_observer(base_orientation);
+
   // Observation: CPU temperature
   auto cpu_temperature = std::make_shared<CpuTemperature>();
   observation.connect_sensor(cpu_temperature);
@@ -227,8 +235,8 @@ int main(const char* argv0, const CommandLineArguments& args) {
   // Spine
   Spine::Parameters spine_params;
   spine_params.frequency = args.spine_frequency;
-  const auto now = upkie::cpp::utils::datetime_now_string();
-  spine_params.log_path = args.log_dir + "/" + now + "_bullet_spine.mpack";
+  spine_params.log_path =
+      upkie::cpp::utils::get_log_path(args.log_dir, "bullet_spine");
   spine_params.shm_name = args.shm_name;
   spdlog::info("Spine data logged to {}", spine_params.log_path);
   Spine spine(spine_params, interface, observation);
