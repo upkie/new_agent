@@ -31,8 +31,7 @@ help:
 # ============
 
 .PHONY: build
-build: clean_broken_links  ## build Raspberry Pi targets
-	$(BAZEL) build --config=pi64 //agent
+build: clean_broken_links  ## build Raspberry Pi spines
 	$(BAZEL) build --config=pi64 //spines:mock_spine
 	$(BAZEL) build --config=pi64 //spines:pi3hat_spine
 
@@ -49,7 +48,7 @@ check_upkie_name:
 	fi
 
 .PHONY: clean
-clean: clean_broken_links  ## clean all local build and intermediate files
+clean: clean_broken_links  ## clean up intermediate build files
 	$(BAZEL) clean --expunge
 
 .PHONY: clean_broken_links
