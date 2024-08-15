@@ -16,13 +16,13 @@
 #include "upkie/cpp/actuation/Pi3HatInterface.h"
 #include "upkie/cpp/model/joints.h"
 #include "upkie/cpp/model/servo_layout.h"
+#include "upkie/cpp/observers/BaseOrientation.h"
 #include "upkie/cpp/observers/FloorContact.h"
 #include "upkie/cpp/observers/ObserverPipeline.h"
 #include "upkie/cpp/observers/WheelOdometry.h"
 #include "upkie/cpp/sensors/CpuTemperature.h"
 #include "upkie/cpp/sensors/Joystick.h"
 #include "upkie/cpp/spine/Spine.h"
-#include "upkie/cpp/utils/datetime_now_string.h"
 #include "upkie/cpp/utils/get_log_path.h"
 #include "upkie/cpp/utils/realtime.h"
 #include "upkie/cpp/version.h"
@@ -32,6 +32,7 @@ namespace spines::pi3hat {
 using Pi3Hat = ::mjbots::pi3hat::Pi3Hat;
 using palimpsest::Dictionary;
 using upkie::cpp::actuation::Pi3HatInterface;
+using upkie::cpp::observers::BaseOrientation;
 using upkie::cpp::observers::FloorContact;
 using upkie::cpp::observers::ObserverPipeline;
 using upkie::cpp::observers::WheelOdometry;
@@ -145,19 +146,6 @@ inline bool calibration_needed() {
   return !file_found;
 }
 
-inline const std::string get_log_path(const std::string& log_dir) {
-  const auto now = upkie::cpp::utils::datetime_now_string();
-  const std::string prefix = log_dir + "/" + now + "_pi3hat_spine";
-
-  char hostname[512];
-  int return_code = gethostname(hostname, 512);
-  if (return_code != 0) {
-    spdlog::error("Could not get the robot's hostname, errno = {}", errno);
-    return prefix + ".mpack";
-  }
-  return prefix + "_" + hostname + ".mpack";
-}
-
 int main(const CommandLineArguments& args) {
   if (calibration_needed()) {
     spdlog::error("Calibration needed: did you run `upkie_tool rezero`?");
@@ -169,6 +157,12 @@ int main(const CommandLineArguments& args) {
   }
 
   ObserverPipeline observation;
+
+  // Observation: Base orientation
+  BaseOrientation::Parameters base_orientation_params;
+  auto base_orientation =
+      std::make_shared<BaseOrientation>(base_orientation_params);
+  observation.append_observer(base_orientation);
 
   // Observation: CPU temperature
   auto cpu_temperature = std::make_shared<CpuTemperature>();

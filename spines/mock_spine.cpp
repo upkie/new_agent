@@ -12,11 +12,13 @@
 #include "upkie/cpp/actuation/MockInterface.h"
 #include "upkie/cpp/model/joints.h"
 #include "upkie/cpp/model/servo_layout.h"
+#include "upkie/cpp/observers/BaseOrientation.h"
 #include "upkie/cpp/observers/FloorContact.h"
 #include "upkie/cpp/observers/ObserverPipeline.h"
 #include "upkie/cpp/observers/WheelOdometry.h"
 #include "upkie/cpp/sensors/CpuTemperature.h"
 #include "upkie/cpp/spine/Spine.h"
+#include "upkie/cpp/utils/get_log_path.h"
 #include "upkie/cpp/utils/realtime.h"
 #include "upkie/cpp/version.h"
 
@@ -28,6 +30,7 @@ namespace spines::mock {
 
 using palimpsest::Dictionary;
 using upkie::cpp::actuation::MockInterface;
+using upkie::cpp::observers::BaseOrientation;
 using upkie::cpp::observers::FloorContact;
 using upkie::cpp::observers::ObserverPipeline;
 using upkie::cpp::observers::WheelOdometry;
@@ -52,6 +55,9 @@ class CommandLineArguments {
         help = true;
       } else if (arg == "-v" || arg == "--version") {
         version = true;
+      } else if (arg == "--log-dir") {
+        log_dir = args.at(++i);
+        spdlog::info("Command line: log_dir = {}", log_dir);
       } else if (arg == "--spine-cpu") {
         spine_cpu = std::stol(args.at(++i));
         spdlog::info("Command line: spine_cpu = {}", spine_cpu);
@@ -62,6 +68,10 @@ class CommandLineArguments {
         spdlog::error("Unknown argument: {}", arg);
         error = true;
       }
+    }
+    if (log_dir.length() < 1) {
+      const char* env_log_dir = std::getenv("UPKIE_LOG_PATH");
+      log_dir = (env_log_dir != nullptr) ? env_log_dir : "/tmp";
     }
   }
 
@@ -91,6 +101,9 @@ class CommandLineArguments {
   //! Help flag
   bool help = false;
 
+  //! Log directory
+  std::string log_dir = "";
+
   //! CPUID for the spine thread (-1 to disable realtime).
   int spine_cpu = -1;
 
@@ -108,6 +121,12 @@ int main(const CommandLineArguments& args) {
   }
 
   ObserverPipeline observation;
+
+  // Observation: Base orientation
+  BaseOrientation::Parameters base_orientation_params;
+  auto base_orientation =
+      std::make_shared<BaseOrientation>(base_orientation_params);
+  observation.append_observer(base_orientation);
 
   // Observation: CPU temperature
   auto cpu_temperature = std::make_shared<CpuTemperature>();
@@ -145,7 +164,8 @@ int main(const CommandLineArguments& args) {
   Spine::Parameters spine_params;
   spine_params.cpu = args.spine_cpu;
   spine_params.frequency = args.spine_frequency;
-  spine_params.log_path = "/dev/shm/spine.mpack";
+  spine_params.log_path =
+      upkie::cpp::utils::get_log_path(args.log_dir, "mock_spine");
   spdlog::info("Spine data logged to {}", spine_params.log_path);
   Spine spine(spine_params, actuation, observation);
   spine.run();
