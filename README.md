@@ -13,7 +13,7 @@ If you don't need a custom spine, you can implement your agent in Python directl
 
 ## Usage
 
-- Install Python packages to a conda environment: `conda create -f environment.yaml`
+- Install Python packages to a conda environment: `conda env create -f environment.yaml`
 - Activate conda environment: `conda activate <env_name>`
 - Run the simulation spine: `make run_bullet_spine`
 - Build the pi3hat spine locally: `make build`
