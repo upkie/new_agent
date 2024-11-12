@@ -1,6 +1,10 @@
+# New agent template
+
+[![upkie](https://img.shields.io/badge/upkie-5.1.0-cyan)](https://github.com/upkie/upkie/tree/v5.1.0)
+
 Template repository to create new agents with custom spines for [Upkie](https://github.com/upkie/upkie) wheeled bipeds.
 
-If you don't need a custom spine, you can implement your agent in Python directly. Check out the [MPC](https://github.com/upkie/mpc_balancer) or [Pink](https://github.com/upkie/pink_balancer) balancers for instance.
+If you don't need a custom spine, you can implement your agent in Python directly, as done for instance in the [MPC](https://github.com/upkie/mpc_balancer) and [Pink](https://github.com/upkie/pink_balancer) balancers.
 
 ## Getting started
 
