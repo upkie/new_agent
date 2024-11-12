@@ -1,6 +1,6 @@
 # New agent template
 
-[![upkie](https://img.shields.io/badge/upkie-6.0.0-cyan)](https://github.com/upkie/upkie/tree/v6.0.0)
+[![upkie](https://img.shields.io/badge/upkie-6.0.0-salmon)](https://github.com/upkie/upkie/tree/v6.0.0)
 
 Template repository to create new agents with custom spines for [Upkie](https://github.com/upkie/upkie) wheeled bipeds.
 
