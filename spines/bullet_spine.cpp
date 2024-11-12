@@ -12,7 +12,6 @@
 
 #include "upkie/cpp/actuation/BulletInterface.h"
 #include "upkie/cpp/model/joints.h"
-#include "upkie/cpp/model/servo_layout.h"
 #include "upkie/cpp/observers/BaseOrientation.h"
 #include "upkie/cpp/observers/FloorContact.h"
 #include "upkie/cpp/observers/ObserverPipeline.h"
@@ -219,7 +218,6 @@ int main(const char* argv0, const CommandLineArguments& args) {
   // a "b3AlignedObjectArray reserve out-of-memory" error below.
 
   // Simulator
-  const auto servo_layout = upkie::cpp::model::servo_layout();
   const double base_altitude = args.space ? 0.0 : 0.6;  // [m]
   BulletInterface::Parameters bullet_params(Dictionary{});
   bullet_params.argv0 = argv0;
@@ -230,7 +228,7 @@ int main(const char* argv0, const CommandLineArguments& args) {
   bullet_params.position_base_in_world = Eigen::Vector3d(0., 0., base_altitude);
   bullet_params.robot_urdf_path = "external/upkie_description/urdf/upkie.urdf";
   bullet_params.env_urdf_paths = args.extra_urdf_paths;
-  BulletInterface interface(servo_layout, bullet_params);
+  BulletInterface interface(bullet_params);
 
   // Spine
   Spine::Parameters spine_params;

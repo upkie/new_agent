@@ -2,16 +2,15 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-# Hostname or IP address of the Raspberry Pi Uses the value from the UPKIE_NAME
-# environment variable, if defined. Valid usage: ``make upload UPKIE_NAME=foo``
-REMOTE = ${UPKIE_NAME}
-
 # Project name needs to match the one in WORKSPACE
 # TODO: set project name
 PROJECT_NAME = new_agent
 
+# Hostname or IP address of the Raspberry Pi Uses the value from the UPKIE_NAME
+# environment variable, if defined. Valid usage: ``make upload UPKIE_NAME=foo``
+REMOTE = ${UPKIE_NAME}
+
 BAZEL = $(CURDIR)/tools/bazelisk
-COVERAGE_DIR = $(CURDIR)/bazel-out/_coverage
 CURDATE = $(shell date -Iseconds)
 CURDIR_NAME = $(shell basename $(CURDIR))
 RASPUNZEL = $(CURDIR)/tools/raspunzel
