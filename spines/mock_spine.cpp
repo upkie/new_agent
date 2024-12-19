@@ -10,7 +10,6 @@
 #include <vector>
 
 #include "upkie/cpp/actuation/MockInterface.h"
-#include "upkie/cpp/model/joints.h"
 #include "upkie/cpp/observers/BaseOrientation.h"
 #include "upkie/cpp/observers/FloorContact.h"
 #include "upkie/cpp/observers/ObserverPipeline.h"

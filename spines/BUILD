@@ -12,7 +12,6 @@ cc_binary(
     ],
     deps = [
         "@upkie//upkie/cpp/actuation:bullet_interface",
-        "@upkie//upkie/cpp/model",
         "@upkie//upkie/cpp/observers",
         "@upkie//upkie/cpp/sensors",
         "@upkie//upkie/cpp/spine",
@@ -28,7 +27,6 @@ cc_binary(
     ],
     deps = [
         "@upkie//upkie/cpp/actuation:mock_interface",
-        "@upkie//upkie/cpp/model",
         "@upkie//upkie/cpp/observers",
         "@upkie//upkie/cpp/sensors",
         "@upkie//upkie/cpp/spine",
@@ -49,7 +47,6 @@ cc_binary(
         "pi3hat_spine.cpp",
     ],
     deps = [
-        "@upkie//upkie/cpp/model",
         "@upkie//upkie/cpp/observers",
         "@upkie//upkie/cpp/sensors",
         "@upkie//upkie/cpp/spine",
