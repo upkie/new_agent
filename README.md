@@ -4,7 +4,7 @@
 
 Template repository to create new agents with custom spines for [Upkie](https://github.com/upkie/upkie) wheeled bipeds.
 
-If you don't need a custom spine, you can implement your agent in Python directly, as done for instance in the [MPC](https://github.com/upkie/mpc_balancer) and [Pink](https://github.com/upkie/pink_balancer) balancers.
+If you don't need a custom spine, you can implement your agent in Python directly, as done for instance in the [MPC balancer](https://github.com/upkie/mpc_balancer).
 
 ## Getting started
 
@@ -17,10 +17,10 @@ If you don't need a custom spine, you can implement your agent in Python directl
 
 ## Usage
 
-- Install Python packages to a conda environment: `conda env create -f environment.yaml`
-- Activate conda environment: `conda activate <env_name>`
-- Run the simulation spine: `make run_bullet_spine`
-- Build the pi3hat spine locally: `make build`
-- Upload the full repository (with built spines) to the robot: `make upload`
-- Run the pi3hat spine: `make run_pi3hat_spine` (on robot)
-- Run your agent: `python agent.py`
+- Install Python packages to a conda environment: `conda env create -f environment.yaml -n your_agent_name`
+- Activate conda environment: `conda activate your_agent_name`
+- Build and run the custom simulation spine: `make run_bullet_spine`
+- Build the custom pi3hat spine: `make build`
+- Upload the working directory to the robot: `make upload`
+- Run the pi3hat spine on the robot: `make run_pi3hat_spine`
+- Run your agent on the robot: `python agent.py`
