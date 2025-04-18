@@ -5,8 +5,8 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 def upkie_repository(
-        version = "6.0.0",
-        sha256 = "abf0edda26336918889765f67b863004c781fc03ca2b95a315340398c466cc50"):
+        version = "7.0.0",
+        sha256 = "8563f0c72fb59b524beebf0f6f306f43912ddcbbd4f49dcfa4eb40ac52e68c02"):
     """
     Download release archive from GitHub.
 
