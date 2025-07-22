@@ -15,6 +15,7 @@ cc_binary(
         "@upkie//upkie/cpp/observers",
         "@upkie//upkie/cpp/sensors",
         "@upkie//upkie/cpp/spine",
+        "@upkie//upkie/cpp/utils:clear_shared_memory",
         "@upkie//upkie/cpp/utils:get_log_path",
         "@upkie//upkie/cpp:version",
     ],
