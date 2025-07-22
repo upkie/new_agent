@@ -9,11 +9,13 @@ If you don't need a custom spine, you can implement your agent in Python directl
 ## Getting started
 
 1. Create a new repository from this template
-2. Search for the string "TODO" and update files accordingly
-3. Replace `LICENSE` with the license of your choice (the default one is Apache-2.0)
+2. Replace `LICENSE` with the license of your choice (the default one is Apache-2.0)
+3. Search for the string "TODO" and update files accordingly:
+    - The first instance is in `Makefile`
+    - The second instance is in `WORKSPACE`
 4. Start listing your dependencies in `environment.yaml`
-5. Rename and start implement your agent from `agent.py`
-6. Implement your C++ spines in the `spines` directory
+5. Implement your agent starting from `agent/main.py`
+6. Customize your C++ spines in the `spines` directory
 
 ## Usage
 
@@ -23,4 +25,4 @@ If you don't need a custom spine, you can implement your agent in Python directl
 - Build the custom pi3hat spine: `make build`
 - Upload the working directory to the robot: `make upload`
 - Run the pi3hat spine on the robot: `make run_pi3hat_spine`
-- Run your agent on the robot: `python agent.py`
+- Run your agent on the robot: `python agent/main.py`
