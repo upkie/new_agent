@@ -10,11 +10,13 @@
 #include <vector>
 
 #include "upkie/cpp/actuation/MockInterface.h"
+#include "upkie/cpp/controllers/ControllerPipeline.h"
 #include "upkie/cpp/observers/BaseOrientation.h"
 #include "upkie/cpp/observers/FloorContact.h"
 #include "upkie/cpp/observers/ObserverPipeline.h"
 #include "upkie/cpp/observers/WheelOdometry.h"
 #include "upkie/cpp/sensors/CpuTemperature.h"
+#include "upkie/cpp/sensors/SensorPipeline.h"
 #include "upkie/cpp/spine/Spine.h"
 #include "upkie/cpp/utils/get_log_path.h"
 #include "upkie/cpp/utils/realtime.h"
@@ -28,11 +30,13 @@ namespace spines::mock {
 
 using palimpsest::Dictionary;
 using upkie::cpp::actuation::MockInterface;
+using upkie::cpp::controllers::ControllerPipeline;
 using upkie::cpp::observers::BaseOrientation;
 using upkie::cpp::observers::FloorContact;
 using upkie::cpp::observers::ObserverPipeline;
 using upkie::cpp::observers::WheelOdometry;
 using upkie::cpp::sensors::CpuTemperature;
+using upkie::cpp::sensors::SensorPipeline;
 using upkie::cpp::spine::Spine;
 
 #ifndef __APPLE__
@@ -112,48 +116,54 @@ class CommandLineArguments {
   bool version = false;
 };
 
-int main(const CommandLineArguments& args) {
+//! Build and run the mock spine.
+int run_spine(const CommandLineArguments& args) {
   if (!upkie::cpp::utils::lock_memory()) {
     spdlog::error("could not lock process memory to RAM");
     return -4;
   }
 
-  ObserverPipeline observation;
+  SensorPipeline sensors;
+
+  // Sensor: CPU temperature
+  auto cpu_temperature = std::make_shared<CpuTemperature>();
+  sensors.connect_sensor(cpu_temperature);
+
+#ifndef __APPLE__
+  // Sensor: Joystick
+  auto joystick = std::make_shared<Joystick>();
+  if (joystick->present()) {
+    spdlog::info("Joystick found");
+    sensors.connect_sensor(joystick);
+  }
+#endif
+
+  ObserverPipeline observers;
 
   // Observation: Base orientation
   BaseOrientation::Parameters base_orientation_params;
   auto base_orientation =
       std::make_shared<BaseOrientation>(base_orientation_params);
-  observation.append_observer(base_orientation);
-
-  // Observation: CPU temperature
-  auto cpu_temperature = std::make_shared<CpuTemperature>();
-  observation.connect_sensor(cpu_temperature);
-
-#ifndef __APPLE__
-  // Observation: Joystick
-  auto joystick = std::make_shared<Joystick>();
-  if (joystick->present()) {
-    spdlog::info("Joystick found");
-    observation.connect_sensor(joystick);
-  }
-#endif
+  observers.append_observer(base_orientation);
 
   // Observation: Floor contact
   FloorContact::Parameters floor_contact_params;
   floor_contact_params.dt = 1.0 / args.spine_frequency;
   auto floor_contact = std::make_shared<FloorContact>(floor_contact_params);
-  observation.append_observer(floor_contact);
+  observers.append_observer(floor_contact);
 
   // Observation: Wheel odometry
   WheelOdometry::Parameters odometry_params;
   odometry_params.dt = 1.0 / args.spine_frequency;
   auto odometry = std::make_shared<WheelOdometry>(odometry_params);
-  observation.append_observer(odometry);
+  observers.append_observer(odometry);
 
   // Mock actuators
   const double dt = 1.0 / args.spine_frequency;
   MockInterface actuation(dt);
+
+  // Empty controller pipeline
+  ControllerPipeline controllers;
 
   // Spine
   Spine::Parameters spine_params;
@@ -162,7 +172,7 @@ int main(const CommandLineArguments& args) {
   spine_params.log_path =
       upkie::cpp::utils::get_log_path(args.log_dir, "mock_spine");
   spdlog::info("Spine data logged to {}", spine_params.log_path);
-  Spine spine(spine_params, actuation, observation);
+  Spine spine(spine_params, actuation, sensors, observers, controllers);
   spine.run();
 
   return EXIT_SUCCESS;
@@ -181,5 +191,5 @@ int main(int argc, char** argv) {
     std::cout << "Upkie mock spine " << upkie::cpp::kVersion << "\n";
     return EXIT_SUCCESS;
   }
-  return spines::mock::main(args);
+  return spines::mock::run_spine(args);
 }
