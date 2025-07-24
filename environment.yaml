@@ -1,4 +1,4 @@
 channels:
     - https://conda.anaconda.org/conda-forge
 dependencies:
-    - upkie >=8.0.0,<9
+    - upkie >=8.1.1,<9
