@@ -14,12 +14,14 @@
 #include <vector>
 
 #include "upkie/cpp/actuation/Pi3HatInterface.h"
+#include "upkie/cpp/controllers/ControllerPipeline.h"
 #include "upkie/cpp/observers/BaseOrientation.h"
 #include "upkie/cpp/observers/FloorContact.h"
 #include "upkie/cpp/observers/ObserverPipeline.h"
 #include "upkie/cpp/observers/WheelOdometry.h"
 #include "upkie/cpp/sensors/CpuTemperature.h"
 #include "upkie/cpp/sensors/Joystick.h"
+#include "upkie/cpp/sensors/SensorPipeline.h"
 #include "upkie/cpp/spine/Spine.h"
 #include "upkie/cpp/utils/get_log_path.h"
 #include "upkie/cpp/utils/realtime.h"
@@ -30,12 +32,14 @@ namespace spines::pi3hat {
 using Pi3Hat = ::mjbots::pi3hat::Pi3Hat;
 using palimpsest::Dictionary;
 using upkie::cpp::actuation::Pi3HatInterface;
+using upkie::cpp::controllers::ControllerPipeline;
 using upkie::cpp::observers::BaseOrientation;
 using upkie::cpp::observers::FloorContact;
 using upkie::cpp::observers::ObserverPipeline;
 using upkie::cpp::observers::WheelOdometry;
 using upkie::cpp::sensors::CpuTemperature;
 using upkie::cpp::sensors::Joystick;
+using upkie::cpp::sensors::SensorPipeline;
 using upkie::cpp::spine::Spine;
 
 //! Command-line arguments for the Bullet spine.
@@ -144,7 +148,8 @@ inline bool calibration_needed() {
   return !file_found;
 }
 
-int main(const CommandLineArguments& args) {
+//! Build and run the pi3hat spine.
+int run_spine(const CommandLineArguments& args) {
   if (calibration_needed()) {
     spdlog::error("Calibration needed: did you run `upkie_tool rezero`?");
     return -3;
@@ -154,19 +159,13 @@ int main(const CommandLineArguments& args) {
     return -4;
   }
 
-  ObserverPipeline observation;
+  SensorPipeline sensors;
 
-  // Observation: Base orientation
-  BaseOrientation::Parameters base_orientation_params;
-  auto base_orientation =
-      std::make_shared<BaseOrientation>(base_orientation_params);
-  observation.append_observer(base_orientation);
-
-  // Observation: CPU temperature
+  // Sensor: CPU temperature
   auto cpu_temperature = std::make_shared<CpuTemperature>();
-  observation.connect_sensor(cpu_temperature);
+  sensors.connect_sensor(cpu_temperature);
 
-  // Observation: Joystick
+  // Sensor: Joystick
   auto joystick = std::make_shared<Joystick>();
   if (!joystick->present()) {
     char response;
@@ -179,19 +178,30 @@ int main(const CommandLineArguments& args) {
       return -6;
     }
   }
-  observation.connect_sensor(joystick);
+  sensors.connect_sensor(joystick);
+
+  ObserverPipeline observers;
+
+  // Observation: Base orientation
+  BaseOrientation::Parameters base_orientation_params;
+  auto base_orientation =
+      std::make_shared<BaseOrientation>(base_orientation_params);
+  observers.append_observer(base_orientation);
 
   // Observation: Floor contact
   FloorContact::Parameters floor_contact_params;
   floor_contact_params.dt = 1.0 / args.spine_frequency;
   auto floor_contact = std::make_shared<FloorContact>(floor_contact_params);
-  observation.append_observer(floor_contact);
+  observers.append_observer(floor_contact);
 
   // Observation: Wheel odometry
   WheelOdometry::Parameters odometry_params;
   odometry_params.dt = 1.0 / args.spine_frequency;
   auto odometry = std::make_shared<WheelOdometry>(odometry_params);
-  observation.append_observer(odometry);
+  observers.append_observer(odometry);
+
+  // Empty controller pipeline
+  ControllerPipeline controllers;
 
   try {
     // pi3hat configuration
@@ -211,7 +221,7 @@ int main(const CommandLineArguments& args) {
     spine_params.log_path =
         upkie::cpp::utils::get_log_path(args.log_dir, "pi3hat_spine");
     spdlog::info("Spine data logged to {}", spine_params.log_path);
-    Spine spine(spine_params, interface, observation);
+    Spine spine(spine_params, interface, sensors, observers, controllers);
     spine.run();
   } catch (const ::mjbots::pi3hat::Error& error) {
     std::string message = error.what();
@@ -238,5 +248,5 @@ int main(int argc, char** argv) {
     std::cout << "Upkie pi3hat spine " << upkie::cpp::kVersion << "\n";
     return EXIT_SUCCESS;
   }
-  return spines::pi3hat::main(args);
+  return spines::pi3hat::run_spine(args);
 }
