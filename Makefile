@@ -11,7 +11,6 @@ PROJECT_NAME = new_agent
 REMOTE = ${UPKIE_NAME}
 
 BAZEL = $(CURDIR)/tools/bazelisk
-CURDATE = $(shell date -Iseconds)
 CURDIR_NAME = $(shell basename $(CURDIR))
 RASPUNZEL = $(CURDIR)/tools/raspunzel
 
