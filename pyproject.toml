@@ -1,0 +1,32 @@
+[project]
+# TODO: complete this section: project name, version, description, ...
+name = "new_agent"
+version = "1.0.0"
+description = "..."
+requires-python = ">= 3.9"
+dependencies = []
+
+[build-system]
+build-backend = "flit_core.buildapi"
+requires = ["flit_core >=2,<4"]
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64", "linux-aarch64", "osx-arm64"]
+
+[tool.pixi.pypi-dependencies]
+new_agent = { path = ".", editable = true }
+
+[tool.pixi.dependencies]
+upkie = ">=10.0.0,<11"
+
+[tool.pixi.feature.pack]
+dependencies = { pixi-pack = ">=0.7.2" }
+tasks.pack = "pixi-pack -e default --platform linux-aarch64 --ignore-pypi-non-wheel"
+
+[tool.pixi.tasks]
+agent = "python agent/main.py"
+
+[tool.pixi.environments]
+default = { features = [] }
+pack = { features = ["pack"] }
