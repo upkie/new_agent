@@ -1,4 +1,0 @@
-channels:
-    - https://conda.anaconda.org/conda-forge
-dependencies:
-    - upkie >=8.1.1,<9
