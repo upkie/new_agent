@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-VERSION=8.1.1
+VERSION=10.0.0
 
 UPKIE_DOWNLOAD_URL="https://github.com/upkie/upkie/releases/download"
 SYSTEM=$(uname -s)
