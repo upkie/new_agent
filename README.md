@@ -4,24 +4,25 @@
 
 Template repository to create new agents for [Upkie](https://github.com/upkie/upkie) wheeled bipeds.
 
-If you don't need a custom spine, you can implement your agent in Python directly, as done for instance in the [MPC balancer](https://github.com/upkie/mpc_balancer).
-
 ## Getting started
 
 1. Create a new repository from this template
 2. Replace `LICENSE` with the license of your choice (the default one is Apache-2.0)
 3. Update your project name and dependencies in `pyproject.toml`
-4. Set your project name in `WORKSPACE` and in `Makefile`
-5. Search for the string "TODO" and check that you all occurrences
-6. Rename the `new_agent` directory to your agent's name and implement it there
-7. Customize your C++ spines in the `spines` directory
+6. Rename the `new_agent` directory to your agent's name
+7. Implement your agent
 
 ## Usage
 
-- Install Python packages to a conda environment: `conda env create -f environment.yaml -n your_agent_name`
-- Activate conda environment: `conda activate your_agent_name`
-- Build and run the custom simulation spine: `make run_bullet_spine`
-- Build the custom pi3hat spine: `make build`
-- Upload the working directory to the robot: `make upload`
-- Run the pi3hat spine on the robot: `make run_pi3hat_spine`
-- Run your agent on the robot: `python agent/main.py`
+This project uses [pixi](https://pixi.sh/latest/#installation) to run tasks:
+
+- Start a simulation: `pixi run simulation`
+- Run the agent: `pixi run agent`
+
+You can use the Makefile to deploy the agent to your robot:
+
+1. `make pack_pixi_env` to package the Python environment
+2. `make upload` to upload the agent to the robot
+3. Log into the robot and go to the agent directory
+4. `make unpack_pixi_env` to unpack the Python environment
+5. `make run_agent` to run the agent
