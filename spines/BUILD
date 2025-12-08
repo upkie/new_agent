@@ -11,7 +11,7 @@ cc_binary(
         "@upkie_description",
     ],
     deps = [
-        "@upkie//upkie/cpp/actuation:bullet_interface",
+        "@upkie//upkie/cpp/interfaces:bullet_interface",
         "@upkie//upkie/cpp/observers",
         "@upkie//upkie/cpp/sensors",
         "@upkie//upkie/cpp/spine",
@@ -27,7 +27,7 @@ cc_binary(
         "mock_spine.cpp",
     ],
     deps = [
-        "@upkie//upkie/cpp/actuation:mock_interface",
+        "@upkie//upkie/cpp/interfaces:mock_interface",
         "@upkie//upkie/cpp/observers",
         "@upkie//upkie/cpp/sensors",
         "@upkie//upkie/cpp/spine",
@@ -54,7 +54,7 @@ cc_binary(
         "@upkie//upkie/cpp/utils:get_log_path",
         "@upkie//upkie/cpp:version",
     ] + select({
-        "//:pi64_config": ["@upkie//upkie/cpp/actuation:pi3hat_interface"],
+        "//:pi64_config": ["@upkie//upkie/cpp/interfaces:pi3hat_interface"],
         "//conditions:default": [],
     }),
     target_compatible_with = select({

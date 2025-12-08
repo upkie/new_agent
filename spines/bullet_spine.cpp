@@ -10,8 +10,8 @@
 #include <string>
 #include <vector>
 
-#include "upkie/cpp/actuation/BulletInterface.h"
 #include "upkie/cpp/controllers/ControllerPipeline.h"
+#include "upkie/cpp/interfaces/BulletInterface.h"
 #include "upkie/cpp/observers/BaseOrientation.h"
 #include "upkie/cpp/observers/FloorContact.h"
 #include "upkie/cpp/observers/ObserverPipeline.h"
