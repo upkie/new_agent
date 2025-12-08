@@ -9,8 +9,9 @@ Template repository to create new agents for [Upkie](https://github.com/upkie/up
 1. Create a new repository from this template
 2. Replace `LICENSE` with the license of your choice (the default one is Apache-2.0)
 3. Update your project name and dependencies in `pyproject.toml`
-6. Rename the `new_agent` directory to your agent's name
-7. Implement your agent
+4. Rename the `new_agent` directory to your agent's name
+5. Replace occurrences of "new\_agent" by this directory name in `pyproject.toml`
+6. Implement your agent in this directory
 
 ## Usage
 
