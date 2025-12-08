@@ -1142,8 +1142,8 @@ packages:
   timestamp: 1738196177597
 - pypi: ./
   name: new-agent
-  version: 1.0.0
-  sha256: 3eca9ed79855ddcd5f2e6a6d09e3057d9029e3ea3b827cf815c86dc65a2e8615
+  version: 0.0.1
+  sha256: e8fe5c3d3d59ce602b854f1dd0d9c6f488b38ae52615e9c38e239479873d261f
   requires_python: '>=3.9'
   editable: true
 - conda: https://conda.anaconda.org/conda-forge/linux-64/numpy-2.3.5-py313hf6604e3_0.conda

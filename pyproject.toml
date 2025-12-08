@@ -1,7 +1,6 @@
 [project]
-# TODO: complete this section: project name, version, description, ...
 name = "new_agent"
-version = "1.0.0"
+version = "0.0.1"
 description = "..."
 requires-python = ">= 3.9"
 dependencies = []
@@ -25,7 +24,8 @@ dependencies = { pixi-pack = ">=0.7.2" }
 tasks.pack = "pixi-pack -e default --platform linux-aarch64 --ignore-pypi-non-wheel"
 
 [tool.pixi.tasks]
-agent = "python agent/main.py"
+agent = "python -m new_agent"
+simulation = "./start_simulation.sh"
 
 [tool.pixi.environments]
 default = { features = [] }
