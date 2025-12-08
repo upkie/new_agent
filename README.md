@@ -10,12 +10,11 @@ If you don't need a custom spine, you can implement your agent in Python directl
 
 1. Create a new repository from this template
 2. Replace `LICENSE` with the license of your choice (the default one is Apache-2.0)
-3. Search for the string "TODO" and update files accordingly:
-    - The first instance is in `Makefile`
-    - The second instance is in `WORKSPACE`
-4. Start listing your dependencies in `environment.yaml`
-5. Implement your agent starting from `agent/main.py`
-6. Customize your C++ spines in the `spines` directory
+3. Update your project name and dependencies in `pyproject.toml`
+4. Set your project name in `WORKSPACE` and in `Makefile`
+5. Search for the string "TODO" and check that you all occurrences
+6. Rename the `new_agent` directory to your agent's name and implement it there
+7. Customize your C++ spines in the `spines` directory
 
 ## Usage
 
