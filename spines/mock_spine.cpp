@@ -9,8 +9,8 @@
 #include <string>
 #include <vector>
 
-#include "upkie/cpp/actuation/MockInterface.h"
 #include "upkie/cpp/controllers/ControllerPipeline.h"
+#include "upkie/cpp/interfaces/MockInterface.h"
 #include "upkie/cpp/observers/BaseOrientation.h"
 #include "upkie/cpp/observers/FloorContact.h"
 #include "upkie/cpp/observers/ObserverPipeline.h"
