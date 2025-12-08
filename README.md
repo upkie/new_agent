@@ -1,8 +1,8 @@
 # New agent template
 
-[![upkie](https://img.shields.io/badge/upkie-8.1.1-bbaacc)](https://github.com/upkie/upkie/tree/v8.1.1)
+[![upkie](https://img.shields.io/badge/upkie-10.0.0-bbaacc)](https://github.com/upkie/upkie/tree/v10.0.0)
 
-Template repository to create new agents with custom spines for [Upkie](https://github.com/upkie/upkie) wheeled bipeds.
+Template repository to create new agents for [Upkie](https://github.com/upkie/upkie) wheeled bipeds.
 
 If you don't need a custom spine, you can implement your agent in Python directly, as done for instance in the [MPC balancer](https://github.com/upkie/mpc_balancer).
 
