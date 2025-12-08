@@ -10,7 +10,11 @@ add_default_repositories()
 load("@upkie//tools/workspace:default.bzl", add_upkie_repositories = "add_default_repositories")
 add_upkie_repositories()
 
-# @palimpsest was added by add_upkie_repositories
+# @mpacklog was added by add_upkie_repositories
+load("@mpacklog//tools/workspace:default.bzl", add_mpacklog_repositories = "add_default_repositories")
+add_mpacklog_repositories()
+
+# @palimpsest was added by add_mpacklog_repositories
 load("@palimpsest//tools/workspace:default.bzl", add_palimpsest_repositories = "add_default_repositories")
 add_palimpsest_repositories()
 
